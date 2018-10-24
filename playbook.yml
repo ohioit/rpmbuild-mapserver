@@ -1,0 +1,81 @@
+---
+- hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: Include Vars
+      include_vars: vars.yml
+
+    - name: Configure EPEL
+      yum:
+        name: epel-release
+        state: present
+      become: yes
+
+    - name: Install Dependencies
+      yum:
+        name: "{{dependencies}}"
+        state: present
+      become: yes
+
+    - name: Install FPM Ruby gem
+      gem:
+        name: fpm
+        state: present
+
+    - name: Download MapServer Source Package
+      unarchive:
+        src: "http://download.osgeo.org/mapserver/mapserver-{{mapserver_version}}.tar.gz"
+        dest: /home/vagrant
+        remote_src: yes
+        creates: "mapserver-{{mapserver_version}}.tar.gz"
+
+    - name: Create build directory
+      file:
+        state: directory
+        path: build
+
+    - name: Run cmake
+      command: "cmake -G 'Unix Makefiles' {{cmake_args}} ../mapserver-{{mapserver_version}}"
+      args:
+        chdir: build
+
+    - name: Run make
+      make:
+        chdir: build
+
+    - name: Run make install
+      make:
+        chdir: build
+        target: install
+      become: yes
+
+    - name: Build MapServer RPM
+      command: >
+        bin/fpm -s dir -t rpm -p /vagrant/out
+        --name mapserver
+        --version {{ mapserver_version }}
+        --rpm-summary 'MapServer {{ mapserver_version }}'
+        --iteration {{ rpm_release }}
+        --vendor {{ vendor }}
+        --maintainer '{{ vendor }} <{{ vendor_url }}>'
+        --url https://mapserver.org/
+        --rpm-dist el7
+        --license X/MIT
+        --depends cairo
+        --depends exempi
+        --depends fcgi
+        --depends freetype
+        --depends fribidi
+        --depends gdal
+        --depends geos
+        --depends giflib
+        --depends harfbuzz
+        --depends libcurl
+        --depends libjpeg-turbo
+        --depends libpng12
+        --depends libpqxx
+        --depends librsvg2
+        --depends libxml2
+        --depends proj
+        /opt/mapserver

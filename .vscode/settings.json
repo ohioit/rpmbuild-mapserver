@@ -1,0 +1,9 @@
+{
+    // Recommended setting for working with the Puppet controller repo.
+    // Changes here impact all users of the repo.
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "editor.tabSize": 2,
+    "files.eol": "\n"
+}
