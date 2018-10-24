@@ -1,53 +1,81 @@
 ---
 mapserver_version: '7.2.1'
-rpm_release: '01'
+rpm_release: '01' # reset to 01 when incrementing version
 vendor: OIT
-vendor_url: https://github.com/ohioit/
+vendor_url: https://github.com/ohioit/rpmbuild-mapserver
+
+# MapServer Cmake Options
+with_cairo: on
+with_client_wfs: off
+with_client_wms: off
+with_curl: off
+with_exempi: off
+with_fcgi: on
+with_fribidi: on
+with_gdal: on
+with_geos: on
+with_gif: on
+with_harfbuzz: on
+with_iconv: on
+with_java: off # needs java-devel
+with_kml: off
+with_libxml2: on
+with_mysql: off # needs mariadb-devel
+with_ogr: on
+with_perl: off # needs perl-devel
+with_php: off
+with_postgis: on
+with_proj: on
+with_protobufc: on
+with_rsvg: off
+with_ruby: off # needs ruby-devel
+with_sos: off
+with_svgcairo: off # need to validate
+with_thread_safety: off
+with_wcs: on
+with_wfs: on
+with_wms: on
+with_xmlmapfile: off # needs libxslt-devel
 
 dependencies:
   - "@Development Tools"
-  - cairo-devel
   - cmake
-  - exempi-devel
-  - fcgi-devel
-  - freetype-devel
-  - fribidi-devel
-  - gdal
-  - gdal-devel
-  - geos-devel
-  - giflib-devel
-  - harfbuzz-devel
-  - libcurl-devel
+  - ruby-devel # for fpm ruby gem
   - libjpeg-turbo-devel
-  - libpng12-devel
+  - libpng-devel
   - libpqxx-devel
-  - librsvg2-devel
-  - libxml2-devel
-  - php-devel
-  - proj-devel
-  - protobuf-c-compiler
-  - protobuf-c-devel
-  - python-devel
-  - rake
-  - ruby-devel
-  - rubygems
-  - vim
-  - wget
+  - freetype-devel
 
 cmake_args: >-
   -DCMAKE_INSTALL_PREFIX=/opt/mapserver
-  -DWITH_POSTGIS=0
-  -DWITH_CLIENT_WMS=1
-  -DWITH_CLIENT_WFS=1
-  -DWITH_KML=1
-  -DWITH_SOS=1
-  -DWITH_PHP=1
-  -DWITH_PYTHON=0
-  -DWITH_JAVA=0
-  -DWITH_THREAD_SAFETY=1
-  -DWITH_FCGI=1
-  -DWITH_EXEMPI=1
-  -DWITH_RSVG=1
-  -DWITH_CURL=1
-  -DWITH_FRIBIDI=1
-  -DWITH_HARFBUZZ=1
+  -DWITH_CAIRO={{with_cairo}}
+  -DWITH_CLIENT_WFS={{with_client_wfs}}
+  -DWITH_CLIENT_WMS={{with_client_wms}}
+  -DWITH_CURL={{with_curl}}
+  -DWITH_EXEMPI={{with_exempi}}
+  -DWITH_FCGI={{with_fcgi}}
+  -DWITH_FRIBIDI={{with_fribidi}}
+  -DWITH_GDAL={{with_gdal}}
+  -DWITH_GEOS={{with_geos}}
+  -DWITH_GIF={{with_gif}}
+  -DWITH_HARFBUZZ={{with_harfbuzz}}
+  -DWITH_ICONV={{with_iconv}}
+  -DWITH_JAVA={{with_java}}
+  -DWITH_KML={{with_kml}}
+  -DWITH_LIBXML2={{with_libxml2}}
+  -DWITH_MYSQL={{with_mysql}}
+  -DWITH_OGR={{with_ogr}}
+  -DWITH_PERL={{with_perl}}
+  -DWITH_PHP={{with_php}}
+  -DWITH_POSTGIS={{with_postgis}}
+  -DWITH_PROJ={{with_proj}}
+  -DWITH_PROTOBUFC={{with_protobufc}}
+  -DWITH_RSVG={{with_rsvg}}
+  -DWITH_RUBY={{with_ruby}}
+  -DWITH_SOS={{with_sos}}
+  -DWITH_SVGCAIRO={{with_svgcairo}}
+  -DWITH_THREAD_SAFETY={{with_thread_safety}}
+  -DWITH_WCS={{with_wcs}}
+  -DWITH_WFS={{with_wfs}}
+  -DWITH_WMS={{with_wms}}
+  -DWITH_XMLMAPFILE={{with_xmlmapfile}}
