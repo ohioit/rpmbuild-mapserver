@@ -5,77 +5,75 @@ vendor: OIT
 vendor_url: https://github.com/ohioit/rpmbuild-mapserver
 
 # MapServer Cmake Options
-with_cairo: on
-with_client_wfs: off
-with_client_wms: off
-with_curl: off
-with_exempi: off
-with_fcgi: on
-with_fribidi: on
-with_gdal: on
-with_geos: on
-with_gif: on
-with_harfbuzz: on
-with_iconv: on
-with_java: off # needs java-devel
-with_kml: off
-with_libxml2: on
-with_mysql: off # needs mariadb-devel
-with_ogr: on
-with_perl: off # needs perl-devel
-with_php: off
-with_postgis: on
-with_proj: on
-with_protobufc: on
-with_rsvg: off
-with_ruby: off # needs ruby-devel
-with_sos: off
-with_svgcairo: off # need to validate
-with_thread_safety: off
-with_wcs: on
-with_wfs: on
-with_wms: on
-with_xmlmapfile: off # needs libxslt-devel
+with_cairo: true
+with_client_wfs: false
+with_client_wms: false
+with_curl: false
+with_exempi: false
+with_fcgi: true
+with_fribidi: true
+with_gdal: true
+with_geos: true
+with_gif: true
+with_harfbuzz: true
+with_iconv: true
+with_java: false
+with_kml: false
+with_libxml2: true
+with_mysql: false
+with_ogr: true
+with_perl: false
+with_php: false
+with_postgis: true
+with_proj: true
+with_protobufc: true
+with_rsvg: false
+with_ruby: false
+with_sos: false
+with_thread_safety: false
+with_wcs: true
+with_wfs: true
+with_wms: true
+with_xmlmapfile: false
 
 dependencies:
   - "@Development Tools"
   - cmake
-  - ruby-devel # for fpm ruby gem
+  - freetype-devel
   - libjpeg-turbo-devel
   - libpng-devel
   - libpqxx-devel
-  - freetype-devel
+  - ruby-devel
 
 cmake_args: >-
   -DCMAKE_INSTALL_PREFIX=/opt/mapserver
-  -DWITH_CAIRO={{with_cairo}}
-  -DWITH_CLIENT_WFS={{with_client_wfs}}
-  -DWITH_CLIENT_WMS={{with_client_wms}}
-  -DWITH_CURL={{with_curl}}
-  -DWITH_EXEMPI={{with_exempi}}
-  -DWITH_FCGI={{with_fcgi}}
-  -DWITH_FRIBIDI={{with_fribidi}}
-  -DWITH_GDAL={{with_gdal}}
-  -DWITH_GEOS={{with_geos}}
-  -DWITH_GIF={{with_gif}}
-  -DWITH_HARFBUZZ={{with_harfbuzz}}
-  -DWITH_ICONV={{with_iconv}}
-  -DWITH_JAVA={{with_java}}
-  -DWITH_KML={{with_kml}}
-  -DWITH_LIBXML2={{with_libxml2}}
-  -DWITH_MYSQL={{with_mysql}}
-  -DWITH_OGR={{with_ogr}}
-  -DWITH_PERL={{with_perl}}
-  -DWITH_PHP={{with_php}}
-  -DWITH_POSTGIS={{with_postgis}}
-  -DWITH_PROJ={{with_proj}}
-  -DWITH_PROTOBUFC={{with_protobufc}}
-  -DWITH_RSVG={{with_rsvg}}
-  -DWITH_RUBY={{with_ruby}}
-  -DWITH_SOS={{with_sos}}
-  -DWITH_SVGCAIRO={{with_svgcairo}}
-  -DWITH_THREAD_SAFETY={{with_thread_safety}}
-  -DWITH_WCS={{with_wcs}}
-  -DWITH_WFS={{with_wfs}}
-  -DWITH_WMS={{with_wms}}
-  -DWITH_XMLMAPFILE={{with_xmlmapfile}}
+  -DWITH_CAIRO={{ with_cairo }}
+  -DWITH_CLIENT_WFS={{ with_client_wfs }}
+  -DWITH_CLIENT_WMS={{ with_client_wms }}
+  -DWITH_CURL={{ with_curl }}
+  -DWITH_EXEMPI={{ with_exempi }}
+  -DWITH_FCGI={{ with_fcgi }}
+  -DWITH_FRIBIDI={{ with_fribidi }}
+  -DWITH_GDAL={{ with_gdal }}
+  -DWITH_GEOS={{ with_geos }}
+  -DWITH_GIF={{ with_gif }}
+  -DWITH_HARFBUZZ={{ with_harfbuzz }}
+  -DWITH_ICONV={{ with_iconv }}
+  -DWITH_JAVA={{ with_java }}
+  -DWITH_KML={{ with_kml }}
+  -DWITH_LIBXML2={{ with_libxml2 }}
+  -DWITH_MYSQL={{ with_mysql }}
+  -DWITH_OGR={{ with_ogr }}
+  -DWITH_PERL={{ with_perl }}
+  -DWITH_PHP={{ with_php }}
+  -DWITH_POSTGIS={{ with_postgis }}
+  -DWITH_PROJ={{ with_proj }}
+  -DWITH_PROTOBUFC={{ with_protobufc }}
+  -DWITH_RSVG={{ with_rsvg }}
+  -DWITH_RUBY={{ with_ruby }}
+  -DWITH_SOS={{ with_sos }}
+  -DWITH_THREAD_SAFETY={{ with_thread_safety }}
+  -DWITH_WCS={{ with_wcs }}
+  -DWITH_WFS={{ with_wfs }}
+  -DWITH_WMS={{ with_wms }}
+  -DWITH_XMLMAPFILE={{ with_xmlmapfile }}

@@ -9,6 +9,51 @@
         - vars.yml
         - local.yml
 
+    - name: Check CURL/OGR requirement for Client WFS
+      fail:
+        msg: The CURL and OGR options are required for Client WFS
+      when: with_client_wfs == true and (with_curl == false or with_ogr == false)
+
+    - name: Check CURL/OGR requirement for Client WMS
+      fail:
+        msg: The CURL and OGR options are required for Client WMS
+      when: with_client_wms == true and (with_curl == false or with_ogr == false)
+
+    - name: Check the FRIBIDI <-> HARFBUZZ Requirement
+      fail:
+        msg: FRIBIDI and HARFBUZZ are codependent
+      when: (with_harfbuzz == true and with_fribidi == false) or (with_harfbuzz == false and with_fribidi == true)
+
+    - name: Check libxml2 requirement for KML
+      fail:
+        msg: The KML option requires LIBXML2
+      when: with_kml == true and with_libxml2 == false
+
+    - name: Check Cairo requirement for RSVG
+      fail:
+        msg: The RSVG option requires CAIRO
+      when: with_rsvg == true and with_cairo == false
+
+    - name: Check PROJ requirement for SOS
+      fail:
+        msg: The SOS option requires PROJ
+      when: with_sos == true and with_proj == false
+
+    - name: Check PROJ/GDAL requirement for WCS
+      fail:
+        msg: The WCS option requires PROJ amd GDAL
+      when: with_wcs == true and (with_proj == false or with_gdal == false)
+
+    - name: Check PROJ/OGR requirement for WFS
+      fail:
+        msg: The WFS option requires PROJ and OGR
+      when: with_wfs == true and (with_proj == false or with_ogr == false)
+
+    - name: Check PROJ requirement for WMS
+      fail:
+        msg: The WMS option requires PROJ
+      when: with_wms == true and with_proj == false
+
     - name: Configure EPEL
       yum:
         name: epel-release
@@ -26,98 +71,126 @@
         name: cairo-devel
         state: present
       become: yes
-      when: with_cairo == true
+      when: with_cairo
 
     - name: Install Exempi Development libs
       yum:
         name: exempi-devel
         state: present
       become: yes
-      when: with_exempi == true
+      when: with_exempi
 
     - name: Install Fcgi Development libs
       yum:
         name: fcgi-devel
         state: present
       become: yes
-      when: with_fcgi == true
+      when: with_fcgi
 
     - name: Install fribidi Development libs
       yum:
         name: fribidi-devel
         state: present
       become: yes
-      when: with_fribidi == true
+      when: with_fribidi
 
     - name: Install gdal Development libs
       yum:
         name: gdal-devel
         state: present
       become: yes
-      when: with_gdal == true
+      when: with_gdal
 
     - name: Install geos Development libs
       yum:
         name: geos-devel
         state: present
       become: yes
-      when: with_geos == true
+      when: with_geos
 
     - name: Install GIF Development libs
       yum:
         name: giflib-devel
         state: present
       become: yes
-      when: with_gif == true
+      when: with_gif
 
     - name: Install Harfbuzz Development libs
       yum:
         name: harfbuzz-devel
         state: present
       become: yes
-      when: with_harfbuzz == true
+      when: with_harfbuzz
+
+    - name: Install Java Development libs
+      yum:
+        name: java-devel
+        state: present
+      become: yes
+      when: with_java
 
     - name: Install Curl Development libs
       yum:
         name: libcurl-devel
         state: present
       become: yes
-      when: with_curl == true
+      when: with_curl
 
     - name: Install librsvg2 Development libs
       yum:
         name: librsvg2-devel
         state: present
       become: yes
-      when: with_rsvg == true
+      when: with_rsvg
 
     - name: Install libxml2 Development libs
       yum:
         name: libxml2-devel
         state: present
       become: yes
-      when: with_libxml2 == true or with_sos == true or with_kml == true
+      when: with_libxml2 or with_sos or with_kml
+
+    - name: Install MySQL Development libs
+      yum:
+        name: mariadb-devel
+        state: present
+      become: yes
+      when: with_mysql
+
+    - name: Install Perl Development libs
+      yum:
+        name: perl-devel
+        state: present
+      become: yes
+      when: with_perl
 
     - name: Install PHP Development libs
       yum:
         name: php-devel
         state: present
       become: yes
-      when: with_php == true
+      when: with_php
 
     - name: Install Proj Development libs
       yum:
         name: proj-devel
         state: present
       become: yes
-      when: with_proj == true
+      when: with_proj
 
     - name: Install Protobuf-c Development libs
       yum:
         name: protobuf-c-devel
         state: present
       become: yes
-      when: with_protobufc == true
+      when: with_protobufc
+
+    - name: Install libxslt Development libs
+      yum:
+        name: libxslt-devel
+        state: present
+      become: yes
+      when: with_xmlmapfile
 
     - name: Install FPM Ruby gem
       gem:
@@ -168,16 +241,21 @@
         --depends libpng
         --depends libpqxx
         {% if with_cairo %}--depends cairo{% endif %}
+        {% if with_curl %}--depends libcurl{% endif %}
         {% if with_exempi %}--depends exempi{% endif %}
         {% if with_fcgi %}--depends fcgi{% endif %}
         {% if with_fribidi %}--depends fribidi{% endif %}
         {% if with_gdal %}--depends gdal{% endif %}
         {% if with_geos %}--depends geos{% endif %}
-        {% if with_harfbuzz %}--depends harfbuzz{% endif %}
         {% if with_gif %}--depends giflib{% endif %}
-        {% if with_curl %}--depends libcurl{% endif %}
-        {% if with_rsvg %}--depends librsvg2{% endif %}
+        {% if with_harfbuzz %}--depends harfbuzz{% endif %}
+        {% if with_java %}--depends java{% endif %}
+        {% if with_libxml2 or with_sos or with_kml %}--depends libxml2{% endif %}
+        {% if with_mysql %}--depends mariadb{% endif %}
+        {% if with_perl %}--depends perl{% endif %}
         {% if with_proj %}--depends proj{% endif %}
         {% if with_protobufc %}--depends protobuf-c{% endif %}
-        {% if with_libxml2 or with_sos or with_kml %}--depends libxml2{% endif %}
+        {% if with_rsvg %}--depends librsvg2{% endif %}
+        {% if with_ruby %}--depends ruby{% endif %}
+        {% if with_xmlmapfile %}--depends libxslt{% endif %}
         /opt/mapserver
