@@ -1,3 +1,9 @@
+# Default CMake Options
+
+These are most of the CMake options and their default values. Only the options tested
+and confirmed working have been included here. Some options may be overriden in vars.yml.
+Additional customizations can be included in a local.yml file.
+
 | Option | Description | Default |
 |--------|-------------|---------|
 | WITH_CAIRO | Required for SVG and PDF output | ON |

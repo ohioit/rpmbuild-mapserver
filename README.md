@@ -16,7 +16,7 @@ of this repo is to facilitate the creation and maintenace of MapServer RPMs.
 git clone https://github.com/ohioit/rpmbuild-mapserver.git mapserver
 cd mapserver
 cp vars.yml local.yml
-# Modify local.yml as needed, i.e. MapServer Cmake Options
+# Modify local.yml as needed, i.e. MapServer CMake Options
 vagrant up
 ```
 

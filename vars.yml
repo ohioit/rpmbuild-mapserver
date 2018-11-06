@@ -23,7 +23,7 @@ with_libxml2: true
 with_mysql: false
 with_ogr: true
 with_perl: false
-with_php: false
+with_php: true # default is false
 with_postgis: true
 with_proj: true
 with_protobufc: true
