@@ -1,6 +1,6 @@
 ---
 mapserver_version: '7.2.1'
-rpm_release: '01' # reset to 01 when incrementing version
+rpm_release: '02' # reset to 01 when incrementing version
 vendor: OIT
 vendor_url: https://github.com/ohioit/rpmbuild-mapserver
 

@@ -224,6 +224,15 @@
         target: install
       become: yes
 
+    # Adding to Vagrant Playbook, but I have not decided
+    # if I want to include it in the RPM or handle separately
+    - name: Create MapServer ld.so.conf.d file
+      copy:
+        dest: /etc/ld.so.conf.d/mapserver.conf
+        content: |
+          /opt/mapserver/lib
+      become: yes
+
     - name: Build MapServer RPM
       command: >-
         bin/fpm -s dir -t rpm -p /vagrant/out
@@ -257,5 +266,7 @@
         {% if with_protobufc %}--depends protobuf-c{% endif %}
         {% if with_rsvg %}--depends librsvg2{% endif %}
         {% if with_ruby %}--depends ruby{% endif %}
+        {% if with_php %}--depends php{% endif %}
         {% if with_xmlmapfile %}--depends libxslt{% endif %}
         /opt/mapserver
+        {% if with_php %}/usr/lib64/php/modules/php_mapscript.so{% endif %}
