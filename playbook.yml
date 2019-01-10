@@ -262,7 +262,7 @@
         {% if with_libxml2 or with_sos or with_kml %}--depends libxml2{% endif %}
         {% if with_mysql %}--depends mariadb{% endif %}
         {% if with_perl %}--depends perl{% endif %}
-        {% if with_proj %}--depends proj{% endif %}
+        {% if with_proj %}--depends proj-epsg{% endif %}
         {% if with_protobufc %}--depends protobuf-c{% endif %}
         {% if with_rsvg %}--depends librsvg2{% endif %}
         {% if with_ruby %}--depends ruby{% endif %}
